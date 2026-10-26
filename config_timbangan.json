@@ -1,0 +1,19 @@
+{
+    "port": "COM7",
+    "baud_rate": 9600,
+    "api_url": "http://127.0.0.1:8000/api/timbangan/update",
+    "patterns": [
+        {
+            "merk": "Indikator Tipe 3 (Logistik)",
+            "regex": "(?:Gross|Net)\\s+(\\d+)\\s*kg"
+        },
+        {
+            "merk": "Indikator Tipe 2 (Status Prefix)",
+            "regex": "^[A-Z@\\s]+(\\d+)\\s*kg"
+        },
+        {
+            "merk": "Indikator Tipe 1 (Data Mentah)",
+            "regex": "\\+0*(\\d+)\\d{3}\\s*$"
+        }
+    ]
+}
