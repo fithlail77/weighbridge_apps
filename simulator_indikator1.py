@@ -4,7 +4,7 @@ import math
 
 # --- KONFIGURASI SIMULATOR ---
 # Pastikan COM_PORT ini adalah pasangan dari yang digunakan di reader.py (misal COM6 <-> COM7)
-COM_PORT = 'COM6' 
+COM_PORT = 'COM2' 
 BAUD_RATE = 9600
 
 # Digit akhiran khusus dari indikator tipe ini (dijaga tetap untuk simulasi)

@@ -22,17 +22,38 @@
         <p class="mt-4 text-sm text-gray-500" id="status-koneksi">Menghubungkan ke server...</p>
     </div>
 
-    <!-- Script Listener WebSocket -->
     <script type="module">
         document.addEventListener("DOMContentLoaded", () => {
-            document.getElementById('status-koneksi').innerText = 'Terhubung ✅';
-            
+            const statusEl = document.getElementById('status-koneksi');
+            const angkaEl = document.getElementById('angka-timbangan');
+
             // Dengarkan channel WebSocket
             window.Echo.channel('weighbridge-channel')
-                .listen('.App\\Events\\WeightUpdated', (e) => {
-                    console.log("Data diterima dari WebSocket:", e); // Cek Console (F12)
-                    document.getElementById('angka-timbangan').innerText = e.berat + ' KG';
+                .listen('.WeightUpdated', (e) => {
+                    console.log("Data diterima dari WebSocket:", e);
+                    angkaEl.innerText = parseFloat(e.berat).toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + ' KG';
+                })
+                .listen('WeightUpdated', (e) => {
+                    console.log("Data diterima dari WebSocket:", e);
+                    angkaEl.innerText = parseFloat(e.berat).toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) + ' KG';
                 });
+
+            // Pantau status koneksi WebSocket
+            if (window.Echo && window.Echo.connector && window.Echo.connector.pusher) {
+                const conn = window.Echo.connector.pusher.connection;
+                if (conn.state === 'connected') {
+                    statusEl.innerText = 'Terhubung ke WebSocket ✅';
+                }
+                conn.bind('connected', () => {
+                    statusEl.innerText = 'Terhubung ke WebSocket ✅';
+                });
+                conn.bind('disconnected', () => {
+                    statusEl.innerText = 'Koneksi WebSocket terputus ❌';
+                });
+                conn.bind('unavailable', () => {
+                    statusEl.innerText = 'Server WebSocket (Reverb) belum aktif ⚠️';
+                });
+            }
         });
     </script>
 

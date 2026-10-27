@@ -3,7 +3,7 @@ import time
 import math
 
 # --- KONFIGURASI SIMULATOR TIPE 3 ---
-COM_PORT = 'COM6' # Sesuaikan dengan Virtual Port Anda
+COM_PORT = 'COM2' # Sesuaikan dengan Virtual Port Anda
 BAUD_RATE = 9600
 
 def format_data_indikator3(berat_gross, berat_tare):

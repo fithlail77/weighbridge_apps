@@ -37,4 +37,9 @@ class WeightUpdated implements ShouldBroadcastNow
             new Channel('weighbridge-channel'),
         ];
     }
+
+    public function broadcastAs(): string
+    {
+        return 'WeightUpdated';
+    }
 }
